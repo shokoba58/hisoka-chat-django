@@ -34,7 +34,7 @@
       msgDiv.classList.add(data.username === username ? "self" : "other");
       msgDiv.innerHTML = `
         <div class="bubble">
-            <p class="text">${data.message + getRondomMark()}</p>
+            <p class="text">${data.message}<span>${getRondomMark()}</span></p>
         </div>
         <!--<div class="meta">${data.username} | ${new Date().toLocaleTimeString()}</div>-->
       `;

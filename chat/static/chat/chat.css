@@ -1,6 +1,6 @@
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  background: #5EABD6;
+  background: #bbb;
   margin: 0;
   padding: 0;
 }
@@ -15,11 +15,25 @@ body {
 }
 
 .chat-log {
+  position:relative;
   flex: 1;
   padding: 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  
+  /* 背景画像の設定 */
+  background: url("/static/chat/bg.png") no-repeat center center;
+  background-size: 400px;
+  background-position:45%
+}
+
+.chat-log::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.7);  /* 半透明の白 */
+  pointer-events: none;
 }
 
 .message {
@@ -70,7 +84,6 @@ body {
 .chat-input {
   display: flex;
   padding: 10px;
-  background: #FEFBC7;
 }
 
 .chat-input input {
@@ -91,3 +104,5 @@ body {
   color: #fff;
   cursor: pointer;
 }
+
+p span { font-size:19px }
