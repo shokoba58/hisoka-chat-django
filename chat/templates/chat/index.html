@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>チャットルーム一覧</title>
+</head>
+<body>
+    <h1>チャットルーム一覧</h1>
+    <form method="get" action="">
+        <label>ルーム名を入力してください:</label>
+        <input id="room-name-input" type="text" size="20">
+        <input id="room-name-submit" type="button" value="入室">
+    </form>
+
+    <script>
+        document.querySelector("#room-name-input").focus();
+        document.querySelector("#room-name-input").onkeyup = function(e) {
+            if (e.key === "Enter") { 
+                document.querySelector("#room-name-submit").click();
+            }
+        };
+
+        document.querySelector("#room-name-submit").onclick = function(e) {
+            var roomName = document.querySelector("#room-name-input").value;
+            if (roomName.trim()) {
+                window.location.pathname = "/chat/" + roomName + "/";
+            }
+        };
+    </script>
+</body>
+</html>

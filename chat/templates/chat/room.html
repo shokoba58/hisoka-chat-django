@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ルーム: {{ room_name }}</title>
+</head>
+<body>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'chat/chat.css' %}">
+  <div class="chat-container">
+    <div id="chat-log" class="chat-log"></div>
+
+    <div class="chat-input">
+      <input id="chat-message-input" type="text" placeholder="メッセージを入力…" />
+      <button id="chat-message-submit">送信</button>
+    </div>
+  </div>
+
+  <script>
+    const roomName = "{{ room_name }}";
+    const scheme = window.location.protocol === "https:" ? "wss" : "ws";
+
+    const chatSocket = new WebSocket(
+      scheme + "://" + window.location.host + "/ws/chat/" + roomName + "/"
+    );
+
+    const username = "{{ request.user.username|default:'匿名' }}";  // Djangoのユーザー名を渡す
+    // 省略: WebSocket接続処理
+    chatSocket.onmessage = function(e) {
+      const data = JSON.parse(e.data);
+      const msgDiv = document.createElement("div");
+      // 自分の発言なら右、他人なら左
+      msgDiv.classList.add("message");
+      msgDiv.classList.add(data.username === username ? "self" : "other");
+      msgDiv.innerHTML = `
+        <div class="bubble">
+            <p class="text">${data.message + getRondomMark()}</p>
+        </div>
+        <!--<div class="meta">${data.username} | ${new Date().toLocaleTimeString()}</div>-->
+      `;
+      document.querySelector("#chat-log").appendChild(msgDiv);
+    };
+    
+    chatSocket.onclose = function(e) {
+      console.error("WebSocket closed unexpectedly");
+    };
+
+    document.querySelector("#chat-message-input").focus();
+    document.querySelector("#chat-message-input").onkeyup = function(e) {
+      if (e.key === "Enter") {
+        document.querySelector("#chat-message-submit").click();
+      }
+    };
+
+    document.querySelector("#chat-message-submit").onclick = function(e) {
+      const messageInputDom = document.querySelector("#chat-message-input");
+      const message = messageInputDom.value;
+      chatSocket.send(JSON.stringify({
+        "message": message
+      }));
+      messageInputDom.value = "";
+    };
+    
+    const getRondomMark = () => {
+      // ヒソカ語尾配列
+      const seasons = [
+      "♠",
+      "♥",
+      "♦",
+      "♣"
+      ];
+
+      // 配列からランダムに選ぶためのインデックス
+      const randomIndex = Math.floor(Math.random() * 4);
+
+      // ランダムに選ばれた語尾
+      return currentSeason = seasons[randomIndex];
+    };
+  </script>
+</body>
+</html>

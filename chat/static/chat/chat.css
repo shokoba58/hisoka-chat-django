@@ -1,0 +1,93 @@
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #5EABD6;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-container {
+  max-width: 600px;
+  margin: 50px auto;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.chat-log {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.message.self {
+  align-self: flex-end;
+}
+
+.message.other {
+  align-self: flex-start;
+}
+
+.bubble {
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  line-height: 1.4;
+  position: relative;
+  word-wrap: break-word;
+}
+
+/* 自分のメッセージ（右・緑系） */
+.message.self .bubble {
+  background: #FFB4B4;
+  border-bottom-right-radius: 0;
+}
+
+/* 相手のメッセージ（左・白） */
+.message.other .bubble {
+  background: #ffffff;
+  border-bottom-left-radius: 0;
+  border: 1px solid #ddd;
+}
+.message .meta {
+  font-size: 0.75em;
+  color: #666;
+  margin-top: 3px;
+  text-align: right;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  background: #FEFBC7;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #eee;
+    background: #eee;
+  outline: none;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background: #EA2264;
+  color: #fff;
+  cursor: pointer;
+}
